@@ -7,8 +7,7 @@ function tokenize(string, types, cb) {
       match,
       token,
       regex,
-      badTokens = [],
-      errors;
+      badTokens = [];
 
   for(var i in types){
     regex = new RegExp(types[i].regex.source, "g");
