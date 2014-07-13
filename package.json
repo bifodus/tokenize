@@ -1,0 +1,31 @@
+{
+  "name": "tokenize",
+  "version": "0.0.0",
+  "description": "Tokenize a string with regex.",
+  "main": "tokenize.js",
+  "scripts": {
+    "pretest": "jshint index.js",
+    "cover": "istanbul cover _mocha -- -r should test.js && cat ./coverage/lcov.info | coveralls -v && rm -rf coverage",
+    "test": "mocha -r should test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bifodus/tokenize.git"
+  },
+  "keywords": [
+    "tokenize",
+    "javascript",
+    "parse"
+  ],
+  "author": "Eric Schneider",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "55131b41f5054672530152aa5b4759a8e4212abb",
+  "devDependencies": {
+    "coveralls": "^2.11.1",
+    "istanbul": "^0.3.0",
+    "jshint": "^2.5.2",
+    "mocha": "^1.20.1",
+    "should": "^4.0.4"
+  }
+}
