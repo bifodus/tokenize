@@ -9,4 +9,4 @@
 [travis-image]: http://img.shields.io/travis/bifodus/tokenize.svg
 
 [coveralls-url]: https://coveralls.io/r/bifodus/tokenize 
-[coveralls-image]: http://img.shields.io/coveralls/bifodus/tokenizer/master.svg
+[coveralls-image]: http://img.shields.io/coveralls/bifodus/tokenize/master.svg
