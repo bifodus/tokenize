@@ -7,7 +7,8 @@ function tokenize(string, types, cb) {
       match,
       token,
       regex,
-      badTokens = [];
+      badTokens = [],
+      err = null;
 
   for(var i in types){
     regex = new RegExp(types[i].regex.source, "g");
@@ -25,8 +26,10 @@ function tokenize(string, types, cb) {
   });
 
   badTokens = getInvalidTokens(results, string);
+  if(badTokens.length)
+    err = badTokens;
   
-  return [results, badTokens];
+  cb(err, results);
 }
 
 function getInvalidTokens(tokenArray, string) {
