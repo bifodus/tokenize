@@ -30,5 +30,48 @@ describe('tokenize', function() {
       done(err);
     });
   })
+
+  it('should handle strings whose contents can match other tokens', function(done){
+    var tokenSpecs = [
+      {type: 'whitespace', regex: /^\s+/},
+      {type: 'variable', regex: /^[a-z]+/},
+      {type: 'string', regex: /^"[^"]+"/}
+    ];
+    tokenize('  "  "  asdf "asdf"', tokenSpecs, function(err, results){
+      assert.deepEqual(results, [
+        {
+          type: 'whitespace',
+          value: '  ',
+          index: 0
+        },
+        {
+          type: 'string',
+          value: '" "',
+          index: 2
+        },
+        {
+          type: 'whitespace',
+          value: '  ',
+          index: 6
+        },
+        {
+          type: 'variable',
+          value: 'asdf',
+          index: 8
+        },
+        {
+          type: 'whitespace',
+          value: ' ',
+          index: 12
+        },
+        {
+          type: 'string',
+          value: '"asdf"',
+          index: 13
+        }
+      ]);
+      done(err);
+    });
+  });
 })
 
