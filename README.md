@@ -6,7 +6,7 @@
 [npm-image]: http://img.shields.io/npm/v/tokenize.svg
 
 [travis-url]: https://travis-ci.org/bifodus/tokenize 
-[travis-image]: http://img.shields.io/travis/bifodus/tokenizer.svg
+[travis-image]: http://img.shields.io/travis/bifodus/tokenize.svg
 
-[coveralls-url]: https://coveralls.io/r/bifodus/tokenizer 
+[coveralls-url]: https://coveralls.io/r/bifodus/tokenize 
 [coveralls-image]: http://img.shields.io/coveralls/bifodus/tokenizer/master.svg
