@@ -33,9 +33,9 @@ describe('tokenize', function() {
 
   it('should handle strings whose contents can match other tokens', function(done){
     var tokenSpecs = [
-      {type: 'whitespace', regex: /^\s+/},
-      {type: 'variable', regex: /^[a-z]+/},
-      {type: 'string', regex: /^"[^"]+"/}
+      {type: 'whitespace', regex: /\s+/},
+      {type: 'variable', regex: /[a-z]+/},
+      {type: 'string', regex: /"[^"]+"/}
     ];
     tokenize('  "  "  asdf "asdf"', tokenSpecs, function(err, results){
       assert.deepEqual(results, [
@@ -46,7 +46,7 @@ describe('tokenize', function() {
         },
         {
           type: 'string',
-          value: '" "',
+          value: '"  "',
           index: 2
         },
         {
