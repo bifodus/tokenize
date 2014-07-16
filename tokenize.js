@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = tokenize;
+module.exports.simple = simple;
 
 function tokenize(string, types, cb) {
   var results = [],
@@ -48,7 +49,7 @@ function tokenize(string, types, cb) {
     //smallest index.
     else {
       nextIndex = getSmallestIndex(types) || (string.length - runningIndex);
-      
+
       if(!err){
         err = [];
       }
@@ -61,10 +62,10 @@ function tokenize(string, types, cb) {
     }
     runningString = string.substr(runningIndex);
 
-    //find new matches starting at the current index 
+    //find new matches starting at the current index
     for(var j = 0; j < len; j++) {
       if(types[j].nextMatch && types[j].nextMatch.index < 0){
-        types[j].nextMatch = types[j].regex.exec(runningString); 
+        types[j].nextMatch = types[j].regex.exec(runningString);
       }
     }
   }
@@ -91,7 +92,7 @@ function getBiggestMatch(types) {
     if((currLength = types[i].nextMatch[0].length) > biggest){
       biggestType = types[i];
       biggest = currLength;
-    } 
+    }
   }
 
   return biggestType;
@@ -107,4 +108,59 @@ function getSmallestIndex(types) {
   }
 
   return isFinite(smallest) ? smallest : null;
+}
+
+function simple(string, specs, cb) {
+  specs = specs.concat().map(normalizeSpecs);
+
+  var results = [],
+      match,
+      err = null,
+      runningIndex = 0,
+      len = specs.length,
+      runningString = string,
+      i,
+      type;
+
+  while(runningString) {
+    match = null;
+    for(i=0;i<len;i++){
+      type = specs[i];
+      match = type.regex.exec(runningString);
+      if(match)break;
+    }
+
+    if(!match){
+      err = new Error('Found error at index ' + (runningIndex));
+      break;
+    }
+
+    match = match[0];
+
+    runningString = string.substring(runningIndex + match.length);
+
+    results.push({
+      type: type.type,
+      value: match,
+      index: runningIndex
+    });
+
+    runningIndex += match.length;
+  }
+
+  if(typeof cb === 'function')cb(err, results);
+  else
+    if(err)throw err;
+    else return results;
+}
+
+function normalizeSpecs(spec){
+  var source = spec.regex.source;
+
+  if(source.indexOf('^') !== 0)source = '^' + source;
+
+  return {
+    regex: new RegExp(source),
+    type: spec.type
+  };
 }
